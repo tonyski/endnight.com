@@ -12,6 +12,5 @@
 */
 
 Route::group(['namespace' => 'Api', 'as' => 'api.'], function () {
-    Route::get('posts', 'PostsController@index')->name('posts.index');
-    Route::get('post/{post}', 'PostsController@show')->name('posts.show');
+    Route::apiResource('posts', 'PostsController');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostCollection;
 use App\Http\Resources\Post as PostResource;
 use App\Models\Post;
@@ -21,29 +22,19 @@ class PostsController extends ApiController
      */
     public function index()
     {
-        $posts = $this->posts->select(['id', 'slug', 'title', 'created_at'])->paginate(9);
+        $posts = $this->posts->select(['id', 'slug', 'title', 'subtitle', 'created_at'])->paginate(9);
         return new PostCollection($posts);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  PostRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $this->posts->create($request->all());
     }
 
     /**
@@ -58,17 +49,6 @@ class PostsController extends ApiController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
@@ -77,7 +57,7 @@ class PostsController extends ApiController
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update($request->all());
     }
 
     /**
@@ -88,6 +68,6 @@ class PostsController extends ApiController
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
     }
 }
