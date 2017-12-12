@@ -15,12 +15,12 @@ class UsersTableSeeder extends Seeder
     {
         $test_user = [
             'name' => 'test',
-            'email' => 'test@fs.com',
-            'password' => bcrypt('fs.com'),
+            'email' => 'test@test.com',
+            'password' => bcrypt('123456'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ];
         DB::table('users')->insert($test_user);
-        factory(User::class, 20)->create();
+        factory(User::class, 10)->create();
     }
 }
